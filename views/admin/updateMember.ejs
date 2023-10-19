@@ -1,0 +1,93 @@
+<%-include("partials/header" , {title: title});-%>
+<body>
+  <%-include("partials/navigator" , {title: title});-%>
+  <form
+    method="post"
+    enctype="multipart/form-data"
+    action="/admin/uploadMember"
+  >
+    <h3 class="primary-text">Update Member</h3>
+    <label for="name">Name: </label>
+    <input
+      type="text"
+      name="fname_az"
+      id="name"
+      placeholder="AZ"
+      value="<%=current.fname.az%>"
+    />
+    <input
+      type="text"
+      name="fname_en"
+      id="nameEN"
+      placeholder="EN"
+      value="<%=current.fname.en%>"
+    />
+    <br />
+
+    <label for="lname">Surname: </label>
+    <input
+      type="text"
+      name="lname_az"
+      id="lname"
+      placeholder="AZ"
+      value="<%=current.lname.az%>"
+    />
+    <input
+      type="text"
+      name="lname_en"
+      id="lnameEN"
+      placeholder="EN"
+      value="<%=current.lname.en%>"
+    />
+    <br />
+
+    <label for="email">Email: </label>
+    <input type="email" name="email" id="email" value="<%=current.email%>" />
+    <br />
+
+    <label for="position">Position: </label>
+    <input
+      type="text"
+      name="position"
+      id="position"
+      value="<%=current.position%>"
+    />
+    <br />
+
+    <label>About: </label>
+    <textarea
+      name="about_az"
+      id="about_az"
+      cols="30"
+      rows="10"
+      placeholder="AZ"
+    >
+<%-current.about.az-%></textarea
+    >
+    <textarea
+      name="about_en"
+      cols="30"
+      rows="10"
+      id="about_en"
+      placeholder="EN"
+    >
+<%-current.about.en-%></textarea
+    >
+    <br />
+
+    <label for="memberType">Member Type: </label>
+    <select name="memberType" id="memberType">
+      <option value="0">Partner</option>
+      <option value="1">Member</option>
+    </select>
+    <br />
+
+    <label for="image">Image: </label>
+    <input type="file" name="uploadedImage" id="image" /> <br />
+    <button type="submit">Send</button>
+  </form>
+  <script>
+    document.querySelector("#about_az").value = "";
+    document.querySelector("#about_en").value = "<%-current.about.en%>";
+  </script>
+</body>

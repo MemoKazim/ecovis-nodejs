@@ -1,0 +1,39 @@
+<%-include("partials/header" , {title: title});-%>
+<body>
+  <%-include("partials/navigator" , {title: title});-%>
+
+  <form method="post" action="/admin/uploadCareer">
+    <label for="title">Job Name: </label>
+    <input type="text" name="name_az" placeholder="AZ" />
+    <input type="text" name="name_en" placeholder="EN" />
+    <br />
+
+    <label for="content">Job Description: </label>
+    <textarea
+      type="text"
+      name="description_az"
+      placeholder="AZ"
+      required
+    ></textarea>
+    <textarea
+      type="text"
+      name="description_en"
+      placeholder="EN"
+      required
+    ></textarea>
+    <br />
+
+    <label for="title">Status: </label>
+    <select name="status">
+      Status:
+      <option value="Open">Open</option>
+      <option value="Close">Close</option>
+    </select>
+    <br />
+
+    <label for="date">Date: </label>
+    <input type="date" name="date" id="date" required /> <br />
+
+    <button type="submit">Send</button>
+  </form>
+</body>

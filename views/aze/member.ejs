@@ -1,0 +1,19 @@
+<%-include("partials/header" , {title: title});-%>
+<%-include("partials/navbar");-%>
+<body>
+  <section class="about-member">
+    <img src="uploads/<%=singleMember.image.data%>" alt="member-image" />
+    <div class="member-data">
+      <div class="single-member-name">
+        <%-singleMember.fname.az-%> <%-singleMember.lname.az-%>
+      </div>
+      <div class="member-position"><%-singleMember.position-%></div>
+      <br />
+      <div class="member-information">
+        <p class="member-detail"><%-singleMember.about.az-%></p>
+      </div>
+    </div>
+  </section>
+  </section>
+  <%-include("partials/footer");-%>
+</body>

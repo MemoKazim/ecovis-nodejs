@@ -1,0 +1,40 @@
+<%-include("partials/header" , {title: title});-%>
+<body>
+  <%-include("partials/navigator" , {title: title});-%>
+
+  <form method="post" action="/admin/update/Career/<%=current._id%>">
+    <label for="title">Job Name: </label>
+    <input type="text" name="name_az" value="<%=current.job_name.az%>" />
+    <input type="text" name="name_en" value="<%=current.job_name.en%>" />
+    <br />
+
+    <label for="content">Job Description: </label>
+    <input
+      type="text"
+      name="description_az"
+      value="<%=current.job_description.az%>"
+    />
+    <input
+      type="text"
+      name="description_en"
+      value="<%=current.job_description.en%>"
+    />
+    <br />
+
+    <label for="date">Date: </label>
+    <input
+      type="date"
+      name="date"
+      id="date"
+      value="<%=String(current.date.getFullYear())%>-<%=String(current.date.getMonth()+1).padStart(2,'0');%>-<%=String(current.date.getDate()).padStart(2,'0');%>"
+      required
+    />
+    <br />
+    <select name="status">
+      Status:
+      <option value="Open">Open</option>
+      <option value="Close">Close</option>
+    </select>
+    <button type="submit" class="btn btn-success">Update</button>
+  </form>
+</body>

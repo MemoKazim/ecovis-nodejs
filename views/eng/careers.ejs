@@ -1,0 +1,35 @@
+<%-include("partials/header" , {title: title});-%>
+<body>
+  <%-include("partials/navbar");-%>
+  <section class="career-section-1">
+    <%-include("partials/navigation" , {title: title});-%>
+    <div class="career-content">
+      <% careers.forEach(career => { %>
+      <div class="career-box">
+        <div class="career-left">
+          <div class="career-name">
+            <a href="/eng/career/<%=career._id%>"
+              ><%-career.job_name.en.substring(0, 500);-%></a
+            >
+          </div>
+          <div class="career-description">
+            <%-career.job_description.en.substring(0, 500);-%>...
+          </div>
+          <div class="career-date">
+            Created: <%-career.date.getDate() + " " +
+            career.date.toLocaleString('default', { month: 'short'}) + " " +
+            career.date.getFullYear()-%>
+          </div>
+        </div>
+        <div class="career-right">
+          <a href="/eng/career/<%=career._id%>"
+            >Read More <i class="fa-solid fa-arrow-right"></i
+          ></a>
+        </div>
+      </div>
+      <%});%>
+    </div>
+  </section>
+
+  <%-include("partials/footer");-%>
+</body>

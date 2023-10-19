@@ -1,0 +1,18 @@
+<%-include("partials/header" , {title: title});-%>
+<body>
+  <%-include("partials/navbar");-%>
+  <section class="career-section-1">
+    <%-include("partials/navigation" , {title: title});-%>
+    <div class="career-content">
+      <div class="career-name-id"><%-career.job_name.en-%></div>
+      <div class="career-description-id"><%-career.job_description.en-%></div>
+      <a class="career-apply" href="mailto:career@ecovis.az"
+        >Apply now! <i class="fa-solid fa-check"></i
+      ></a>
+    </div>
+      </div>
+    </div>
+  </section>
+  <script></script>
+  <%-include("partials/footer");-%>
+</body>

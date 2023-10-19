@@ -1,0 +1,142 @@
+<%-include("partials/header" , {title: title})-%>
+
+<body>
+  <div class="container-fluid position-relative d-flex p-0">
+    <!-- Spinner Start -->
+    <div
+      id="spinner"
+      class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+    >
+      <div
+        class="spinner-border text-primary"
+        style="width: 3rem; height: 3rem"
+        role="status"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Sidebar Start -->
+    <div class="sidebar pe-4 pb-3">
+      <nav class="navbar bg-secondary navbar-dark">
+        <a href="/" class="navbar-brand mx-4 mb-3">
+          <h3 class="text-primary">
+            <i class="fa fa-user-edit me-2"></i>Ecovis
+          </h3>
+        </a>
+        <div class="d-flex align-items-center ms-4 mb-4">
+          <div class="position-relative">
+            <img
+              class="rounded-circle"
+              src="../images/admin.png"
+              alt=""
+              style="width: 40px; height: 40px"
+            />
+            <div
+              class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"
+            ></div>
+          </div>
+          <div class="ms-3">
+            <h6 class="mb-0">Admin</h6>
+            <!-- <span>Admin</span> -->
+          </div>
+        </div>
+        <%-include("partials/paths")-%>
+      </nav>
+    </div>
+    <!-- Sidebar End -->
+
+    <!-- Content Start -->
+    <div class="content">
+      <div class="col-sm-11 m-lg-4">
+        <div class="bg-secondary rounded h-100 p-4">
+          <h6 class="mb-4"><%-title-%> table</h6>
+          <a href="/admin/uploadMember" class="upload-buttons btn btn-success"
+            >Upload Member</a
+          >
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Surname</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Member Type</th>
+                  <th scope="col">Position</th>
+                  <th scope="col">About</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%let counter = 1%> <%current.forEach((member)=>{%>
+                <tr>
+                  <td class="text-truncate" style="max-width: 150px">
+                    <%-counter-%>
+                  </td>
+                  <td class="text-truncate" style="max-width: 150px">
+                    <%-member.fname.en-%>
+                  </td>
+                  <td class="text-truncate" style="max-width: 150px">
+                    <%-member.lname.en-%>
+                  </td>
+                  <td class="text-truncate" style="max-width: 150px">
+                    <%-member.email-%>
+                  </td>
+                  <%if (member.memberType) { %>
+                  <td class="text-truncate" style="max-width: 150px">
+                    Partner
+                  </td>
+                  <%} else { %>
+                  <td class="text-truncate" style="max-width: 150px">
+                    Team Member
+                  </td>
+                  <%}%>
+                  <td class="text-truncate" style="max-width: 150px">
+                    <%-member.position-%>
+                  </td>
+                  <td class="text-truncate" style="max-width: 150px">
+                    <%-member.about.az.substring(0,20)-%>
+                  </td>
+                  <td class="text-truncate" style="max-width: 150px">
+                    <%-member.image.data-%>
+                  </td>
+                  <td>
+                    <table class="table">
+                      <tr>
+                        <a
+                          href="/admin/delete/Member/<%=member._id%>"
+                          class="btn btn-danger m-1"
+                          >Delete</a
+                        >
+                      </tr>
+                      <tr>
+                        <a
+                          href="/admin/update/Member/<%=member._id%>"
+                          class="btn btn-warning m-1"
+                          >Update</a
+                        >
+                      </tr>
+                      <tr>
+                        <a
+                          href="/admin/detail/Member/<%=member._id%>"
+                          class="btn btn-info m-1"
+                          >Detail</a
+                        >
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <%counter = counter + 1; });%>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- Footer Start -->
+      <%-include("partials/footer")-%>
+    </div>
+  </div>
+</body>

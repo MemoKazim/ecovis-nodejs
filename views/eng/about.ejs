@@ -1,0 +1,22 @@
+<%-include("partials/header" , {title: title});-%>
+<body>
+  <%-include("partials/navbar");-%>
+  <section class="about-section-1">
+    <a href="/eng/about#contact" class="about-button"
+      >Planning a consultation</a
+    >
+    <img
+      src="uploads/<%-data[0].image.data-%>"
+      alt="about-image"
+      class="about-image"
+    />
+    <%-include("partials/navigation" , {title: title});-%>
+    <div class="about-content">
+      <span class="about-header"><%-data[0].header.en-%></span>
+      <p><%-data[0].content.en-%></p>
+    </div>
+  </section>
+
+  <%-include("partials/countries");-%> <%-include("partials/contact");-%>
+  <%-include("partials/footer");-%>
+</body>

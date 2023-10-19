@@ -1,0 +1,156 @@
+<%-include("partials/header" , {title: title})-%>
+
+<body>
+  <div class="container-fluid position-relative d-flex p-0">
+    <!-- Spinner Start -->
+    <div
+      id="spinner"
+      class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+    >
+      <div
+        class="spinner-border text-primary"
+        style="width: 3rem; height: 3rem"
+        role="status"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Sidebar Start -->
+    <div class="sidebar pe-4 pb-3">
+      <nav class="navbar bg-secondary navbar-dark">
+        <a href="/" class="navbar-brand mx-4 mb-3">
+          <h3 class="text-primary">
+            <i class="fa fa-user-edit me-2"></i>Ecovis
+          </h3>
+        </a>
+        <div class="d-flex align-items-center ms-4 mb-4">
+          <div class="position-relative">
+            <img
+              class="rounded-circle"
+              src="../images/admin.png"
+              alt=""
+              style="width: 40px; height: 40px"
+            />
+            <div
+              class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"
+            ></div>
+          </div>
+          <div class="ms-3">
+            <h6 class="mb-0">Admin</h6>
+            <!-- <span>Admin</span> -->
+          </div>
+        </div>
+        <%-include("partials/paths")-%>
+      </nav>
+    </div>
+    <!-- Sidebar End -->
+
+    <!-- Content Start -->
+    <div class="content">
+      <div class="col-sm-11 m-lg-4">
+        <div class="bg-secondary rounded h-100 p-4">
+          <h6 class="mb-4"><%-title-%> table</h6>
+          <a href="/admin/uploadService" class="upload-buttons btn btn-success"
+            >Upload Service</a
+          >
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Details</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">Responsible Person</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%let counter = 1%> <%current.forEach((service)=>{%>
+                <tr>
+                  <td class="text-truncate" style="max-width: 150px">
+                    <%-counter-%>
+                  </td>
+                  <td>
+                    <table>
+                      <tr>
+                        <td class="text-truncate" style="max-width: 150px">
+                          <%-service.name.az-%>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="text-truncate" style="max-width: 150px">
+                          <%-service.name.en-%>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td>
+                    <table>
+                      <tr>
+                        <td class="text-truncate" style="max-width: 150px">
+                          <%-service.details.az-%>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="text-truncate" style="max-width: 150px">
+                          <%-service.details.en-%>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td class="text-truncate" style="max-width: 150px">
+                    <%-service.image.data-%>
+                  </td>
+                  <td>
+                    <table>
+                      <%service.responsibleMembers.forEach((member)=>{%>
+                      <tr>
+                        <td class="text-truncate" style="max-width: 150px">
+                          <%members_data.forEach((members)=>{%>
+                          <%if(members._id==member){%> <%-members.fname.en + " "
+                          + members.lname.en-%> <%}});%>
+                        </td>
+                      </tr>
+                      <%});%>
+                    </table>
+                  </td>
+                  <td>
+                    <table class="table">
+                      <tr>
+                        <a
+                          href="/admin/delete/Service/<%=service._id%>"
+                          class="btn btn-danger m-1"
+                          >Delete</a
+                        >
+                      </tr>
+                      <tr>
+                        <a
+                          href="/admin/update/Service/<%=service._id%>"
+                          class="btn btn-warning m-1"
+                          >Update</a
+                        >
+                      </tr>
+                      <tr>
+                        <a
+                          href="/admin/detail/Service/<%=service._id%>"
+                          class="btn btn-info m-1"
+                          >Details</a
+                        >
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <%counter = counter + 1; });%>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- Footer Start -->
+      <%-include("partials/footer")-%>
+    </div>
+  </div>
+</body>
