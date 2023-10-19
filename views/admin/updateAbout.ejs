@@ -1,15 +1,34 @@
 <%-include("partials/header" , {title: title});-%>
 <body>
   <%-include("partials/navigator" , {title: title});-%>
-  <form method="post" enctype="multipart/form-data" action="/admin/updateAbout">
+  <form
+    method="post"
+    enctype="multipart/form-data"
+    action="/admin/update/About/<%=current._id%>"
+  >
     <h3 class="primary-text">Update About Information</h3>
     <label for="name">Header: </label>
-    <input type="text" name="header_az" placeholder="AZ" />
-    <input type="text" name="header_en" placeholder="EN" /> <br />
+    <input
+      type="text"
+      name="header_az"
+      placeholder="AZ"
+      value="<%=current.header.az%>"
+    />
+    <input
+      type="text"
+      name="header_en"
+      placeholder="EN"
+      value="<%=current.header.en%>"
+    />
+    <br />
 
     <label>Content: </label>
-    <textarea name="about_az" cols="30" rows="10" placeholder="AZ"></textarea>
-    <textarea name="about_en" cols="30" rows="10" placeholder="EN"></textarea>
+    <textarea name="about_az" cols="30" rows="10" placeholder="AZ">
+<%-current.content.az-%></textarea
+    >
+    <textarea name="about_en" cols="30" rows="10" placeholder="EN">
+<%-current.content.en-%></textarea
+    >
     <br />
 
     <label for="image">Image: </label>
