@@ -748,7 +748,7 @@ app.get("/admin/update/:collection/:id", (req, res) => {
         console.log(err);
       } else {
         Member.find({}, (err, resultMember) => {
-          res.render(`admin/update${req.params.collection}`, {
+          res.render(`admin/update${req.params.collection.toLowerCase()}`, {
             title: req.params.collection,
             current: result,
             members: resultMember,
@@ -1099,7 +1099,7 @@ app.get("/admin/:collection", (req, res) => {
           console.log(error);
         } else {
           Member.find({}, (err, resultMember) => {
-            res.render(`admin/${req.params.collection}`, {
+            res.render(`admin/${req.params.collection.toLowerCase()}`, {
               title:
                 req.params.collection.charAt(0).toUpperCase() +
                 req.params.collection.slice(1),
