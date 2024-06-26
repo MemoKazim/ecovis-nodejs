@@ -273,7 +273,14 @@ app.post("/aze/success", (req, res) => {
 });
 
 app.get("/aze/about", (req, res) => {
-  res.render("aze/about", { title: "Haqqımızda" });
+  About.find({}, (err, result) => {
+    if (err) {
+      throw err;
+    }
+    res.render("eng/about", { title: "Haqqımızda", data: result });
+  })
+    .sort({ _id: -1 })
+    .limit(1);
 });
 app.get("/aze/employees", (req, res) => {
   Member.find({}, (err, memberResult) => {
@@ -392,7 +399,7 @@ passport.use(
       crypto.pbkdf2(
         password,
         row.Salt,
-        2023,
+        2024,
         32,
         "sha512",
         function (err, hashedPassword) {
@@ -422,6 +429,26 @@ app.post(
     failureRedirect: "/admin",
   })
 );
+
+app.get("/register", (req, res) => {
+  res.render("admin/login_tmp");
+});
+app.post("/register", (req, res) => {
+  const salt = crypto.randomBytes(32);
+  const user = new User({
+    username: req.body.usrname,
+    hashed_password: pbkdf2.pbkdf2Sync(
+      req.body.passwd,
+      salt,
+      2024,
+      32,
+      "sha512"
+    ),
+    Salt: salt,
+  });
+  user.save();
+  res.redirect("/admin");
+});
 
 //
 // ====================================================================
@@ -778,7 +805,7 @@ app.post("/admin/update/User/:id", (req, res) => {
         hashed_password: pbkdf2.pbkdf2Sync(
           req.body.password,
           salt,
-          2023,
+          2024,
           32,
           "sha512"
         ),
@@ -1206,28 +1233,6 @@ app.get("/admin/detail/Career/:id", (req, res) => {
     res.status(401).render("error/401");
   }
 });
-/*
-app.get("/register", (req, res) => {
-  res.render("admin/login_tmp");
-});
-app.post("/register", (req, res) => {
-  const salt = crypto.randomBytes(32);
-  const user = new User({
-    username: req.body.usrname,
-    hashed_password: pbkdf2.pbkdf2Sync(
-      req.body.passwd,
-      salt,
-      2023,
-      32,
-      "sha512"
-    ),
-    Salt: salt,
-  });
-  user.save();
-  res.send("User saved!");
-  res.redirect("/admin");
-});
-*/
 
 app.get("/401", (req, res) => {
   res.status(401).render("error/401");
