@@ -43,6 +43,8 @@
             placeholder="Mesaj"
             required
           ></textarea>
+          <!-- <div class="g-recaptcha" id="rcaptcha"  data-sitekey="site key"></div> -->
+          <span id="captcha" style="color:red" /></span>
           <button type="submit" class="form-button">Göndər</button>
         </form>
       </div>
@@ -63,3 +65,17 @@
     </div>
   </div>
 </section>
+<!-- <script src="https://www.google.com/recaptcha/api.js"></script>
+<script>
+  function get_action(form) {
+    var v = grecaptcha.getResponse();
+    if (v.length == 0) {
+      document.getElementById("captcha").innerHTML =
+        "You can't leave Captcha Code empty";
+      return false;
+    } else {
+      document.getElementById("captcha").innerHTML = "Captcha completed";
+      return true;
+    }
+  }
+</script> -->

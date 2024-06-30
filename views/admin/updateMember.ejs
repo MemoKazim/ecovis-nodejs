@@ -57,9 +57,9 @@
     <label>About: </label>
     <textarea
       name="about_az"
-      id="about_az"
       cols="30"
       rows="10"
+      id="about_az"
       placeholder="AZ"
     >
 <%-current.about.az-%></textarea
@@ -86,8 +86,4 @@
     <input type="file" name="uploadedImage" id="image" /> <br />
     <button type="submit">Send</button>
   </form>
-  <script>
-    document.querySelector("#about_az").value = "";
-    document.querySelector("#about_en").value = "<%-current.about.en%>";
-  </script>
 </body>

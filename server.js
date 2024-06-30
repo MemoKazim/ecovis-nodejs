@@ -748,11 +748,17 @@ app.get("/admin/update/:collection/:id", (req, res) => {
         console.log(err);
       } else {
         Member.find({}, (err, resultMember) => {
-          res.render(`admin/update${req.params.collection.toLowerCase()}`, {
-            title: req.params.collection,
-            current: result,
-            members: resultMember,
-          });
+          res.render(
+            `admin/update${
+              req.params.collection.charAt(0).toUpperCase() +
+              req.params.collection.slice(1)
+            }`,
+            {
+              title: req.params.collection,
+              current: result,
+              members: resultMember,
+            }
+          );
         });
       }
     });

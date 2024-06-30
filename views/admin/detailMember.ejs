@@ -126,8 +126,14 @@
               <td><%-member.lname.en-%></td>
             </tr>
             <tr>
-              <td>Image data:</td>
-              <td colspan="2" class="merged"><%-member.image.data-%></td>
+              <td>Image:</td>
+              <td colspan="2" class="merged">
+                <img
+                  width="200px"
+                  height="300px"
+                  src="/uploads/<%=member.image.data%>"
+                />
+              </td>
             </tr>
             <tr>
               <td>Email:</td>
@@ -145,41 +151,6 @@
               <td>Position:</td>
               <td colspan="2" class="merged"><%-member.position-%></td>
             </tr>
-            <tr>
-              <td colspan="3" class="merged main-content">Education</td>
-            </tr>
-            <%member.education.forEach( (edu) =>{%>
-            <tr>
-              <td>University</td>
-              <td><%-edu.university.az-%></td>
-              <td><%-edu.university.en-%></td>
-            </tr>
-            <tr>
-              <td>Faculty</td>
-              <td><%-edu.faculty.az-%></td>
-              <td><%-edu.faculty.en-%></td>
-            </tr>
-            <tr>
-              <td>Graduation year</td>
-              <td colspan="2" class="merged space"><%-edu.year-%></td>
-            </tr>
-            <tr>
-              <td colspan="3" class="merged main-content">Experience</td>
-            </tr>
-            <%});%> <%member.experience.forEach( (exp) =>{%>
-            <tr>
-              <td>Organization</td>
-              <td colspan="2" class="merged"><%-exp.organization-%></td>
-            </tr>
-            <tr>
-              <td>Position</td>
-              <td colspan="2" class="merged"><%-exp.position-%></td>
-            </tr>
-            <tr>
-              <td>Applied year</td>
-              <td colspan="2" class="merged space"><%-exp.year-%></td>
-            </tr>
-            <%});%>
           </tbody>
         </table>
       </div>
