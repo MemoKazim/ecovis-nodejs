@@ -373,7 +373,22 @@ app.get("/aze/news/:id", (req, res) => {
   });
 });
 app.get("/aze/career", (req, res) => {
-  res.render("aze/career", { title: "Kariyera" });
+  Career.find({ status: "Open" }, (err, newResult) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("aze/careers", { title: "Kariyera", careers: newResult });
+    }
+  });
+});
+app.get("/aze/career/:id", (req, res) => {
+  Career.findById(req.params.id, (err, newResult) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("aze/career", { title: "Kariyera", career: newResult });
+    }
+  });
 });
 app.get("/aze/contact", (req, res) => {
   res.render("aze/contact", { title: "Əlaqə" });
@@ -766,41 +781,90 @@ app.get("/admin/update/:collection/:id", (req, res) => {
     res.status(401).render("error/401");
   }
 });
-
-app.post("/admin/update/Member/:id", (req, res) => {
-  if (req.isAuthenticated()) {
-    Member.findByIdAndUpdate(
-      req.params.id,
-      {
-        fname: {
-          az: req.body.fname_az,
-          en: req.body.fname_en,
-        },
-        lname: {
-          az: req.body.lname_az,
-          en: req.body.lname_en,
-        },
-        email: req.body.email,
-        position: req.body.position,
-        memberType: req.body.memberType,
-        about: {
-          az: req.body.about_az,
-          en: req.body.about_en,
-        },
-        date: req.body.date,
-      },
-      (err, result) => {
+app.get(
+  "/admin/update/image/:collection/:id",
+  upload.single("uploadedImage"),
+  (req, res) => {
+    if (req.isAuthenticated()) {
+      eval(req.params.collection).findById(req.params.id, (err, result) => {
         if (err) {
           console.log(err);
         } else {
-          res.redirect("/admin/members");
+          Member.find({}, (err, resultMember) => {
+            res.render(`admin/updateImage`, {
+              title: req.params.collection,
+              current: result,
+              members: resultMember,
+              table:
+                req.params.collection.charAt(0).toUpperCase() +
+                req.params.collection.slice(1),
+            });
+          });
         }
-      }
-    );
-  } else {
-    res.status(401).render("error/401");
+      });
+    } else {
+      res.status(401).render("error/401");
+    }
   }
-});
+);
+
+app.post(
+  "/admin/update/Member/:id",
+  upload.single("uploadedImage"),
+  (req, res) => {
+    if (req.isAuthenticated()) {
+      if (req.file == undefined) {
+        Member.findByIdAndUpdate(
+          req.params.id,
+          {
+            fname: {
+              az: req.body.fname_az,
+              en: req.body.fname_en,
+            },
+            lname: {
+              az: req.body.lname_az,
+              en: req.body.lname_en,
+            },
+            email: req.body.email,
+            position: req.body.position,
+            memberType: req.body.memberType,
+            about: {
+              az: req.body.about_az,
+              en: req.body.about_en,
+            },
+            date: req.body.date,
+          },
+          (err, result) => {
+            if (err) {
+              console.log(err);
+            } else {
+              res.redirect("/admin/members");
+            }
+          }
+        );
+      } else {
+        Member.findByIdAndUpdate(
+          req.params.id,
+          {
+            image: {
+              data: req.file.filename,
+              contentType: "image/png",
+            },
+          },
+          (err, result) => {
+            if (err) {
+              console.log(err);
+            } else {
+              res.redirect("/admin/members");
+            }
+          }
+        );
+      }
+    } else {
+      res.status(401).render("error/401");
+    }
+  }
+);
 app.post("/admin/update/User/:id", (req, res) => {
   if (req.isAuthenticated()) {
     const salt = crypto.randomBytes(32);
@@ -860,15 +924,6 @@ app.post(
         New.findByIdAndUpdate(
           req.params.id,
           {
-            title: {
-              az: req.body.titleAZ,
-              en: req.body.titleEN,
-            },
-            content: {
-              az: req.body.contentAZ,
-              en: req.body.contentEN,
-            },
-            date: req.body.date,
             image: {
               data: req.file.filename,
               contentType: "image/png",
@@ -916,12 +971,6 @@ app.post(
         Partner.findByIdAndUpdate(
           req.params.id,
           {
-            name: req.body.name,
-            website: req.body.website,
-            details: {
-              az: req.body.detailsAZ,
-              en: req.body.detailsEN,
-            },
             image: {
               data: req.file.filename,
               contentType: "image/png",
@@ -941,122 +990,110 @@ app.post(
     }
   }
 );
-app.post("/admin/update/Service/:id", (req, res) => {
-  if (req.isAuthenticated()) {
-    if (req.file === undefined) {
-      console.log("NO IMAGE UPLOADED");
-      console.log(req.body);
-      Service.findByIdAndUpdate(
-        req.params.id,
-        {
-          name: {
-            az: req.body.nameAZ,
-            en: req.body.nameEN,
+app.post(
+  "/admin/update/Service/:id",
+  upload.single("uploadedImage"),
+  (req, res) => {
+    if (req.isAuthenticated()) {
+      if (req.file === undefined) {
+        Service.findByIdAndUpdate(
+          req.params.id,
+          {
+            name: {
+              az: req.body.nameAZ,
+              en: req.body.nameEN,
+            },
+            details: {
+              az: req.body.detailsAZ,
+              en: req.body.detailsEN,
+            },
+            responsibleMembers: req.body.responsibleMembers,
           },
-          details: {
-            az: req.body.detailsAZ,
-            en: req.body.detailsEN,
-          },
-          responsibleMembers: req.body.responsibleMembers,
-        },
-        (err, result) => {
-          if (err) {
-            console.log(err);
-          } else {
-            res.redirect("/admin/services");
+          (err, result) => {
+            if (err) {
+              console.log(err);
+            } else {
+              res.redirect("/admin/services");
+            }
           }
-        }
-      );
+        );
+      } else {
+        Service.findByIdAndUpdate(
+          req.params.id,
+          {
+            image: {
+              data: req.file.filename,
+              contentType: "image/png",
+            },
+          },
+          (err, result) => {
+            if (err) {
+              console.log(err);
+            } else {
+              res.redirect("/admin/services");
+            }
+          }
+        );
+      }
     } else {
-      Service.findByIdAndUpdate(
-        req.params.id,
-        {
-          name: {
-            az: req.body.nameAZ,
-            en: req.body.nameEN,
-          },
-          details: {
-            az: req.body.detailsAZ,
-            en: req.body.detailsEN,
-          },
-          image: {
-            data: req.file.filename,
-            contentType: "image/png",
-          },
-          responsibleMembers: req.body.responsibleMembers,
-        },
-        (err, result) => {
-          if (err) {
-            console.log(err);
-          } else {
-            res.redirect("/admin/services");
-          }
-        }
-      );
+      res.status(401).render("error/401");
     }
-  } else {
-    res.status(401).render("error/401");
   }
-});
-app.post("/admin/update/About/:id", (req, res) => {
-  if (req.isAuthenticated()) {
-    if (req.file === undefined) {
-      console.log("NO IMAGE UPLOADED");
+);
+app.post(
+  "/admin/update/About/:id",
+  upload.single("uploadedImage"),
+  (req, res) => {
+    if (req.isAuthenticated()) {
+      console.log(req.file);
       console.log(req.body);
-      Service.findByIdAndUpdate(
-        req.params.id,
-        {
-          header: {
-            az: req.body.header_az,
-            en: req.body.header_en,
+      if (req.file === undefined) {
+        About.findByIdAndUpdate(
+          req.params.id,
+          {
+            header: {
+              az: req.body.header_az,
+              en: req.body.header_en,
+            },
+            content: {
+              az: req.body.about_az,
+              en: req.body.about_en,
+            },
           },
-          content: {
-            az: req.body.about_az,
-            en: req.body.about_en,
-          },
-        },
-        (err, result) => {
-          if (err) {
-            console.log(err);
-          } else {
-            res.redirect("/admin/abouts");
+          (err, result) => {
+            if (err) {
+              console.log(err);
+            } else {
+              res.redirect("/admin/abouts");
+            }
           }
-        }
-      );
+        );
+      } else {
+        About.findByIdAndUpdate(
+          req.params.id,
+          {
+            image: {
+              data: req.file.filename,
+              contentType: "image/png",
+            },
+          },
+          (err, result) => {
+            if (err) {
+              console.log(err);
+            } else {
+              res.redirect("/admin/abouts");
+            }
+          }
+        );
+      }
     } else {
-      Service.findByIdAndUpdate(
-        req.params.id,
-        {
-          header: {
-            az: req.body.header_az,
-            en: req.body.header_en,
-          },
-          details: {
-            az: req.body.content_az,
-            en: req.body.content_en,
-          },
-          image: {
-            data: req.file.filename,
-            contentType: "image/png",
-          },
-        },
-        (err, result) => {
-          if (err) {
-            console.log(err);
-          } else {
-            res.redirect("/admin/services");
-          }
-        }
-      );
+      res.status(401).render("error/401");
     }
-  } else {
-    res.status(401).render("error/401");
   }
-});
+);
 
 app.post("/admin/update/Career/:id", (req, res) => {
   if (req.isAuthenticated()) {
-    console.log(req.body);
     Career.findByIdAndUpdate(
       req.params.id,
       {

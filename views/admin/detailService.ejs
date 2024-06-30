@@ -96,41 +96,64 @@
       <div class="flex-container">
         <table>
           <thead>
-            <td></td>
-            <td>AZ</td>
-            <td>EN</td>
+            <td class="text-truncate" style="max-width: 300px"></td>
+            <td class="text-truncate" style="max-width: 300px">AZ</td>
+            <td class="text-truncate" style="max-width: 300px">EN</td>
           </thead>
           <tbody>
             <tr>
-              <td>Name:</td>
-              <td><%-service.name.az-%></td>
-              <td><%-service.name.en-%></td>
+              <td class="text-truncate" style="max-width: 300px">Name:</td>
+              <td class="text-truncate" style="max-width: 300px">
+                <%-service.name.az-%>
+              </td>
+              <td class="text-truncate" style="max-width: 300px">
+                <%-service.name.en-%>
+              </td>
             </tr>
             <tr>
-              <td>Details:</td>
-              <td><%-service.details.az-%></td>
-              <td><%-service.details.en-%></td>
+              <td class="text-truncate" style="max-width: 300px">Details:</td>
+              <td class="text-truncate" style="max-width: 300px">
+                <%-service.details.az-%>
+              </td>
+              <td class="text-truncate" style="max-width: 300px">
+                <%-service.details.en-%>
+              </td>
             </tr>
             <tr>
-              <td>Image data:</td>
-              <td colspan="2" class="merged"><%-service.image.data-%></td>
+              <td class="text-truncate" style="max-width: 300px">
+                Image data:
+              </td>
+              <td
+                colspan="2"
+                class="merged"
+                class="text-truncate"
+                style="max-width: 300px"
+              >
+                <img
+                  height="100px"
+                  width="auto"
+                  src="/uploads/<%=service.image.data%>"
+                />
+              </td>
             </tr>
             <tr>
-              <td colspan="3" class="merged">Responsible Members:</td>
-            </tr>
-            <%members.forEach(member=> {if
-            (service.responsibleMembers.includes(String(member._id))){%>
-            <tr>
-              <td colspan="3"><%-member.fname.az-%> <%-member.lname.az-%></td>
-            </tr>
-            <tr>
-              <td colspan="3"><%-member.fname.en-%> <%-member.lname.en-%></td>
-            </tr>
+              <td class="text-truncate" style="max-width: 300px">
+                Responsible Members:
+              </td>
+              <%members.forEach(member=> {if
+              (service.responsibleMembers.includes(String(member._id))){%>
+              <td class="text-truncate" style="max-width: 300px">
+                <%-member.fname.az-%> <%-member.lname.az-%>
+              </td>
+              <td class="text-truncate" style="max-width: 300px">
+                <%-member.fname.en-%> <%-member.lname.en-%>
+              </td>
 
-            <%}});%>
+              <%}});%>
+            </tr>
             <tr>
-              <td>Action</td>
-              <td>
+              <td class="text-truncate" style="max-width: 300px">Action</td>
+              <td class="text-truncate" style="max-width: 300px">
                 <a
                   href="/admin/delete/Service/<%=service._id%>"
                   class="btn btn-danger m-1"

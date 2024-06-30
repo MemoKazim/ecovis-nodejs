@@ -8,12 +8,12 @@
       <div class="career-box">
         <div class="career-left">
           <div class="career-name">
-            <a href="/aze/career/<%=career._id%>"
-              ><%-career.job_name.az.substring(0, 500);-%></a
+            <a href="/eng/career/<%=career._id%>"
+              ><%-career.job_name.en.substring(0, 500);-%></a
             >
           </div>
           <div class="career-description">
-            <%-career.job_description.az.substring(0, 500);-%>...
+            <%-career.job_description.en.substring(0, 500);-%>...
           </div>
           <div class="career-date">
             Created: <%-career.date.getDate() + " " +
@@ -22,7 +22,7 @@
           </div>
         </div>
         <div class="career-right">
-          <a href="/aze/career/<%=career._id%>"
+          <a href="/eng/career/<%=career._id%>"
             >Read More <i class="fa-solid fa-arrow-right"></i
           ></a>
         </div>

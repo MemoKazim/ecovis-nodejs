@@ -98,10 +98,14 @@
                     <%-member.position-%>
                   </td>
                   <td class="text-truncate" style="max-width: 150px">
-                    <%-member.about.az.substring(0,20)-%>
+                    <%-member.about.en.substring(0,20)-%>
                   </td>
                   <td class="text-truncate" style="max-width: 150px">
-                    <%-member.image.data-%>
+                    <img
+                      height="100px"
+                      width="auto"
+                      src="/uploads/<%=member.image.data%>"
+                    />
                   </td>
                   <td>
                     <table class="table">
@@ -117,6 +121,13 @@
                           href="/admin/update/Member/<%=member._id%>"
                           class="btn btn-warning m-1"
                           >Update</a
+                        >
+                      </tr>
+                      <tr>
+                        <a
+                          href="/admin/update/image/Member/<%=member._id%>"
+                          class="btn btn-warning m-1"
+                          >Update Image</a
                         >
                       </tr>
                       <tr>

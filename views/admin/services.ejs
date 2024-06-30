@@ -102,7 +102,11 @@
                     </table>
                   </td>
                   <td class="text-truncate" style="max-width: 150px">
-                    <%-service.image.data-%>
+                    <img
+                      width="auto"
+                      height="100px"
+                      src="/uploads/<%-service.image.data-%>"
+                    />
                   </td>
                   <td>
                     <table>
@@ -131,6 +135,13 @@
                           href="/admin/update/Service/<%=service._id%>"
                           class="btn btn-warning m-1"
                           >Update</a
+                        >
+                      </tr>
+                      <tr>
+                        <a
+                          href="/admin/update/image/Service/<%=service._id%>"
+                          class="btn btn-warning m-1"
+                          >Update Image</a
                         >
                       </tr>
                       <tr>

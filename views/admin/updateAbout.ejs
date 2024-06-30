@@ -1,11 +1,7 @@
 <%-include("partials/header" , {title: title});-%>
 <body>
   <%-include("partials/navigator" , {title: title});-%>
-  <form
-    method="post"
-    enctype="multipart/form-data"
-    action="/admin/update/About/<%=current._id%>"
-  >
+  <form method="post" action="/admin/update/About/<%=current._id%>">
     <h3 class="primary-text">Update About Information</h3>
     <label for="name">Header: </label>
     <input
@@ -30,9 +26,6 @@
 <%-current.content.en-%></textarea
     >
     <br />
-
-    <label for="image">Image: </label>
-    <input type="file" name="uploadedImage" id="image" required /> <br />
     <button type="submit">Send</button>
   </form>
 </body>

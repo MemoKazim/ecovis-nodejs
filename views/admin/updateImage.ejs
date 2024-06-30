@@ -1,0 +1,26 @@
+<%-include("partials/header" , {title: title});-%>
+<body>
+  <%-include("partials/navigator" , {title: title});-%>
+  <form
+    method="post"
+    enctype="multipart/form-data"
+    action="/admin/update/<%=table%>/<%=current._id%>"
+  >
+    <label>Old Image: </label>
+    <img
+      src="/uploads/<%=current.image.data%>"
+      alt="new-image"
+      style="border: #ffffff 1px solid"
+    />
+    <label for="image">New Image: </label>
+    <img src="#" alt="" id="uploadedImage" />
+    <input
+      type="file"
+      name="uploadedImage"
+      accept="image/*"
+      onchange="readURL(this);"
+    />
+    <button type="submit">Send</button>
+  </form>
+  <%-include("partials/image")-%>
+</body>

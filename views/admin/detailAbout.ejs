@@ -112,14 +112,20 @@
               <td><%-data.content.en-%></td>
             </tr>
             <tr>
-              <td>Image data:</td>
-              <td colspan="2" class="merged"><%-data.image.data-%></td>
+              <td>Image:</td>
+              <td colspan="2" class="merged">
+                <img
+                  width="auto"
+                  height="200px"
+                  src="/uploads/<%=data.image.data%>"
+                />
+              </td>
             </tr>
             <tr>
               <td>Action</td>
               <td>
                 <a
-                  href="/admin/delete/About/<%=partner._id%>"
+                  href="/admin/delete/About/<%=data._id%>"
                   class="btn btn-danger m-1"
                   >Delete</a
                 >

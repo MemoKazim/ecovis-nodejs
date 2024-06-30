@@ -1,11 +1,7 @@
 <%-include("partials/header" , {title: title});-%>
 <body>
   <%-include("partials/navigator" , {title: title});-%>
-  <form
-    method="post"
-    enctype="multipart/form-data"
-    action="/admin/uploadMember"
-  >
+  <form method="post" action="/admin/update/Member/<%=current._id%>">
     <h3 class="primary-text">Update Member</h3>
     <label for="name">Name: </label>
     <input
@@ -77,13 +73,10 @@
 
     <label for="memberType">Member Type: </label>
     <select name="memberType" id="memberType">
-      <option value="0">Partner</option>
-      <option value="1">Member</option>
+      <option value="1">Partner</option>
+      <option value="0">Member</option>
     </select>
     <br />
-
-    <label for="image">Image: </label>
-    <input type="file" name="uploadedImage" id="image" /> <br />
     <button type="submit">Send</button>
   </form>
 </body>
